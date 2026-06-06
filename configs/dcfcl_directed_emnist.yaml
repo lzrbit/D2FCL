@@ -1,0 +1,58 @@
+# DCFCL Configuration with Directed Collaboration for EMNIST-Letters
+# ====================================================================
+
+# Basic Settings
+seed: 42
+device: auto  # auto, cpu, or cuda
+
+# Dataset Settings
+dataset: EMNIST-Letters
+datadir: ./datasets
+data_split_file: split_files/EMNIST_letters_split_cn8_tn6_cet2_cs2_s2571.pkl
+
+# Federated Learning Settings
+num_users: 8
+num_tasks: 6
+num_rounds: 60
+local_epochs: 100
+batch_size: 64
+
+# Algorithm - Use DynDFCL for DER++ replay
+algorithm: DynDFCL
+
+# Optimizer Settings
+lr: 0.0001
+weight_decay: 0.00001
+beta1: 0.9
+beta2: 0.999
+
+# DCFCL Specific Settings
+alpha: 1.0
+lambda_kd: 0.2
+sw: 0.2
+temp: 0.1
+ema_global: 0.9
+global_weight: 0.9
+lambda_proto_aug: 2.0
+proto_queue_length: 100
+
+# DER++ Replay Settings
+buffer_size: 500
+der_alpha: 0.5
+der_beta: 0.5
+
+# Directed Collaboration Settings
+directed_collaboration: true
+directed_mode: gradient    # Options: gradient, task_aware, hybrid
+directed_threshold: 0.0    # Score threshold for collaboration
+directed_temperature: 1.0  # Temperature for softmax weighting
+directed_self_weight: 0.5  # Weight for client's own model
+
+# Model Settings
+model: cnn
+feature_dim: 512
+
+# Logging
+result_dir: ./results
+log_level: INFO
+save_model: false

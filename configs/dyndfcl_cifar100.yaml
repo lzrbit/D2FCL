@@ -1,0 +1,72 @@
+# DynDFCL full-method configuration (CIFAR-100).
+# =============================================================
+# Enables all three improvements:
+#   A. DER++              - dark experience replay (mitigates forgetting)
+#   B. Directed coalition - asymmetric coalition aggregation (reduces negative transfer)
+#   C. Coalition mask     - restricts forced grouping of heterogeneous clients
+#
+# Usage:
+#   python main.py --config configs/dyndfcl_cifar100.yaml
+
+# ---------- General ----------
+seed: 42
+device: auto
+
+# ---------- Dataset ----------
+dataset: CIFAR100
+datadir: ./datasets
+data_split_file: split_files/CIFAR100_split_cn10_tn10_cet10_cs1_s2571.pkl
+
+# ---------- Federated learning ----------
+num_users: 10
+num_tasks: 10
+num_rounds: 100
+local_epochs: 50
+batch_size: 64
+
+# ---------- Algorithm ----------
+algorithm: DynDFCL
+
+# ---------- Optimizer ----------
+lr: 0.001
+weight_decay: 0.001
+beta1: 0.9
+beta2: 0.999
+
+# ---------- DCFCL backbone parameters ----------
+lambda_kd: 0.2
+sw: 0.1
+temp: 0.1
+ema_global: 0.9
+global_weight: 0.9
+lambda_proto_aug: 0.1   # CIFAR-100 tuned value (EMNIST uses 2.0)
+proto_queue_length: 100
+dcfcl_broadcast: 0
+
+# ---------- Model ----------
+model: resnet18
+feature_dim: 512
+
+# ---------- Module A: DER++ replay ----------
+use_der: true
+buffer_size: 500
+der_alpha: 0.5
+der_beta: 0.5
+
+# ---------- Module B: directed coalition ----------
+directed_collaboration: true
+directed_mode: gradient
+directed_temperature: 1.0
+directed_self_weight: 0.5
+directed_threshold: 0.0
+
+# ---------- Module C: coalition mask ----------
+use_coalition_mask: true
+coalition_mask_type: group
+num_client_groups: 2     # 10 clients / 2 groups = 5 per group
+coalition_mask_density: 0.2
+
+# ---------- Logging ----------
+result_dir: ./results
+log_level: INFO
+save_model: false

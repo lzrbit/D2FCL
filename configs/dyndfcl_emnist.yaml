@@ -1,0 +1,78 @@
+# DynDFCL full-method configuration (EMNIST-Letters).
+# =============================================================
+# Enables all three improvements:
+#   A. DER++              - dark experience replay (mitigates forgetting)
+#   B. Directed coalition - asymmetric coalition aggregation (reduces negative transfer)
+#   C. Coalition mask     - restricts forced grouping of heterogeneous clients
+#
+# Usage:
+#   python main.py --config configs/dyndfcl_emnist.yaml
+#
+# Ablations:
+#   DER++ only (no directed, no mask):
+#     python main.py --config configs/dyndfcl_emnist.yaml \
+#                    --no_use_directed_collaboration --no_use_coalition_mask
+#   Or run all module ablations via scripts/run_module_ablation.py.
+
+# ---------- General ----------
+seed: 42
+device: auto
+
+# ---------- Dataset ----------
+dataset: EMNIST-Letters
+datadir: ./datasets
+data_split_file: split_files/EMNIST_letters_split_cn8_tn6_cet2_cs2_s2571.pkl
+
+# ---------- Federated learning ----------
+num_users: 8
+num_tasks: 6
+num_rounds: 60
+local_epochs: 100
+batch_size: 64
+
+# ---------- Algorithm ----------
+algorithm: DynDFCL
+
+# ---------- Optimizer ----------
+lr: 0.0001
+weight_decay: 0.00001
+beta1: 0.9
+beta2: 0.999
+
+# ---------- DCFCL backbone parameters ----------
+lambda_kd: 0.2          # knowledge-distillation loss weight
+sw: 0.1                 # similarity weight
+temp: 0.1
+ema_global: 0.9
+global_weight: 0.9
+lambda_proto_aug: 2.0   # prototype-augmentation loss weight
+proto_queue_length: 100
+dcfcl_broadcast: 0      # 0 = pure coalition (paper default)
+
+# ---------- Module A: DER++ replay ----------
+use_der: true           # toggle (false -> falls back to DCFCL behaviour)
+buffer_size: 500        # per-client replay buffer size
+der_alpha: 0.5          # DER logit-matching loss weight
+der_beta: 0.5           # DER++ CE loss weight
+
+# ---------- Module B: directed coalition ----------
+directed_collaboration: true     # enable asymmetric coalition aggregation
+directed_mode: gradient          # gradient | task_aware | hybrid
+directed_temperature: 1.0        # softmax temperature
+directed_self_weight: 0.5        # weight kept on the client's own model
+directed_threshold: 0.0          # score threshold (0 = accept all positive scores)
+
+# ---------- Module C: coalition mask ----------
+use_coalition_mask: true         # enable coalition constraints
+coalition_mask_type: group       # group | random | custom
+num_client_groups: 2             # group mode: number of groups
+coalition_mask_density: 0.2      # random mode: forbidden-pair probability
+
+# ---------- Model ----------
+model: cnn
+feature_dim: 512
+
+# ---------- Logging ----------
+result_dir: ./results
+log_level: INFO
+save_model: false

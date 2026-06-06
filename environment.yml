@@ -1,0 +1,25 @@
+name: dcfcl
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - pytorch=2.0.1
+  - torchvision=0.15.2
+  - pytorch-cuda=11.8
+  - numpy=1.24.3
+  - scipy=1.11.1
+  - pillow=10.0.0
+  - matplotlib=3.7.2
+  - tqdm=4.65.0
+  - h5py=3.9.0
+  - scikit-learn=1.3.0
+  - seaborn=0.12.2
+  - pandas=2.0.3
+  - pyyaml=6.0
+  - tensorboard=2.14.0
+  - pip
+  - pip:
+    - glog==0.3.1

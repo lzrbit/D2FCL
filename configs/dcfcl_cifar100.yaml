@@ -1,0 +1,45 @@
+# DCFCL Configuration for CIFAR-100
+# ==================================
+
+# Basic Settings
+seed: 42
+device: auto
+
+# Dataset Settings
+dataset: CIFAR100
+datadir: ./datasets
+data_split_file: split_files/CIFAR100_split_cn10_tn10_cet10_cs1_s2571.pkl
+
+# Federated Learning Settings
+num_users: 10
+num_tasks: 10
+num_rounds: 100
+local_epochs: 50
+batch_size: 64
+
+# Algorithm
+algorithm: DCFCL
+
+# Optimizer Settings
+lr: 0.001
+weight_decay: 0.001
+beta1: 0.9
+beta2: 0.999
+
+# DCFCL Specific Settings
+alpha: 1.0
+sw: 0.1
+temp: 0.1
+ema_global: 0.9
+global_weight: 0.9
+lambda_proto_aug: 0.1  # Enable prototype augmentation for CIFAR
+proto_queue_length: 100
+
+# Model Settings
+model: resnet18
+feature_dim: 512
+
+# Logging
+result_dir: ./results
+log_level: INFO
+save_model: false

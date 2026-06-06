@@ -1,0 +1,46 @@
+# DCFCL Configuration for EMNIST-Letters
+# ==========================================
+
+# Basic Settings
+seed: 42
+device: auto  # auto, cpu, or cuda
+
+# Dataset Settings
+dataset: EMNIST-Letters
+datadir: ./datasets
+data_split_file: split_files/EMNIST_letters_split_cn8_tn6_cet2_cs2_s2571.pkl
+
+# Federated Learning Settings
+num_users: 8
+num_tasks: 6
+num_rounds: 60
+local_epochs: 100
+batch_size: 64
+
+# Algorithm
+algorithm: DCFCL  # Options: DCFCL, FedAvg, FedProx, FedLwF, Local, SCAFFOLD, PerAvg, pFedMe
+
+# Optimizer Settings
+lr: 0.0001          # Paper C.4: 1e-4 for EMNIST
+weight_decay: 0.00001  # Paper C.4: 1e-5
+beta1: 0.9
+beta2: 0.999
+
+# DCFCL Specific Settings
+alpha: 1.0          # Knowledge distillation loss weight
+lambda_kd: 0.2      # KD loss weight for DCFCL (paper Eq.6, Table 3: lambda=0.2)
+sw: 0.2             # Similarity weight (paper epsilon=0.2 in Eq.7, Table 3)
+temp: 0.1           # Temperature for KD
+ema_global: 0.9     # EMA factor for prototype aggregation
+global_weight: 0.9  # Weight for global model aggregation
+lambda_proto_aug: 2.0  # Prototype augmentation loss weight (best: 2.0 for EMNIST-Letters)
+proto_queue_length: 100
+
+# Model Settings
+model: cnn  # cnn or resnet18
+feature_dim: 512
+
+# Logging
+result_dir: ./results
+log_level: INFO
+save_model: false
