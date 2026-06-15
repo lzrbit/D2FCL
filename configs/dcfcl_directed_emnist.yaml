@@ -17,8 +17,8 @@ num_rounds: 60
 local_epochs: 100
 batch_size: 64
 
-# Algorithm - Use DynDFCL for DER++ replay
-algorithm: DynDFCL
+# Algorithm - Use D2FCL for DER++ replay
+algorithm: D2FCL
 
 # Optimizer Settings
 lr: 0.0001

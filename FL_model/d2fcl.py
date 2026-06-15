@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-DynDFCL client implementation.
+D2FCL client implementation.
 
 Adds a Dark Experience Replay++ (DER++) mechanism on top of DCFCL:
 a per-client replay buffer stores historical samples together with
@@ -25,9 +25,9 @@ from .base_client import BaseClient
 from core.replay_buffer import ReplayBuffer
 
 
-class DynDFCLClient(BaseClient):
+class D2FCLClient(BaseClient):
     """
-    DynDFCL client.
+    D2FCL client.
 
     Stacks the DER++ replay loss on top of the three DCFCL losses for
     stronger resistance to catastrophic forgetting.
@@ -38,12 +38,12 @@ class DynDFCLClient(BaseClient):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # DynDFCL-specific: the DER++ replay buffer.
+        # D2FCL-specific: the DER++ replay buffer.
         self.replay_buffer = ReplayBuffer(self.config.buffer_size, self.device)
 
     def train(self, glob_iter: int, task: int, **kwargs) -> Dict[str, Any]:
         """
-        DynDFCL local training (DCFCL + DER++).
+        D2FCL local training (DCFCL + DER++).
 
         Args:
             glob_iter:   global communication round index

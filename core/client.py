@@ -133,9 +133,9 @@ class Client:
         # pFedMe specific
         self.local_model = copy.deepcopy(self.model) if config.algorithm == 'pFedMe' else None
         
-        # Replay buffer for DynDFCL (DER/DER++)
+        # Replay buffer for D2FCL (DER/DER++)
         self.replay_buffer = None
-        if config.algorithm == 'DynDFCL':
+        if config.algorithm == 'D2FCL':
             self.replay_buffer = ReplayBuffer(config.buffer_size, self.device)
     
     def _setup_dataloaders(self):
@@ -238,8 +238,8 @@ class Client:
             return self._train_pfedme()
         elif algorithm == 'DCFCL':
             return self._train_dcfcl(kwargs.get('proto_queue'))
-        elif algorithm == 'DynDFCL':
-            return self._train_dyndfcl(kwargs.get('proto_queue'))
+        elif algorithm == 'D2FCL':
+            return self._train_d2fcl(kwargs.get('proto_queue'))
         else:
             return self._train_fedavg()  # Default
     
@@ -492,9 +492,9 @@ class Client:
             'num_sample_class': num_sample_class
         }
     
-    def _train_dyndfcl(self, proto_queue=None) -> Dict[str, Any]:
+    def _train_d2fcl(self, proto_queue=None) -> Dict[str, Any]:
         """
-        DynDFCL: DCFCL + Dark Experience Replay (DER++).
+        D2FCL: DCFCL + Dark Experience Replay (DER++).
         
         Combines the original DCFCL losses (CE + KD + proto_aug) with
         DER++ replay losses:

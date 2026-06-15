@@ -84,7 +84,7 @@ def parse_args():
     
     # ==================== Algorithm Selection ====================
     parser.add_argument('--algorithm', type=str, default='DCFCL',
-                        choices=['DCFCL', 'DynDFCL', 'FedAvg', 'FedProx', 'FedLwF', 'Local', 
+                        choices=['DCFCL', 'D2FCL', 'FedAvg', 'FedProx', 'FedLwF', 'Local', 
                                  'SCAFFOLD', 'PerAvg', 'pFedMe', 'ClusterFL'],
                         help='Federated learning algorithm')
     
@@ -143,15 +143,15 @@ def parse_args():
     
     # ==================== DER (Dark Experience Replay) Settings ====================
     parser.add_argument('--use_der', action='store_true', default=True,
-                        help='Enable DER++ replay module for DynDFCL (master switch)')
+                        help='Enable DER++ replay module for D2FCL (master switch)')
     parser.add_argument('--no_use_der', dest='use_der', action='store_false',
-                        help='Disable DER++ replay module (ablation: DynDFCL → DCFCL behavior)')
+                        help='Disable DER++ replay module (ablation: D2FCL → DCFCL behavior)')
     parser.add_argument('--buffer_size', type=int, default=500,
-                        help='Replay buffer size per client (DynDFCL)')
+                        help='Replay buffer size per client (D2FCL)')
     parser.add_argument('--der_alpha', type=float, default=0.5,
-                        help='DER logit-matching loss weight (DynDFCL)')
+                        help='DER logit-matching loss weight (D2FCL)')
     parser.add_argument('--der_beta', type=float, default=0.5,
-                        help='DER++ replay CE loss weight (DynDFCL)')
+                        help='DER++ replay CE loss weight (D2FCL)')
     
     # ==================== Directed Collaboration Settings ====================
     parser.add_argument('--directed_collaboration', action='store_true',

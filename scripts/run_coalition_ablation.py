@@ -3,15 +3,15 @@
 """
 Coalition-mechanism ablation script.
 
-Validates the coalition aggregation mechanism inside DCFCL / DynDFCL.
+Validates the coalition aggregation mechanism inside DCFCL / D2FCL.
 Supports EMNIST-Letters and CIFAR-100.
 
 Ablation modes:
-1. DynDFCL (Full)             - similarity-driven dynamic coalitions (the proposed method)
-2. DynDFCL (FedAvg Agg)       - FedAvg aggregation instead of coalitions
-3. DynDFCL (Random Coalition) - randomly formed coalitions (not similarity-driven)
-4. DynDFCL (Singleton)        - one coalition per client (pure local training)
-5. DynDFCL (Global Union)     - all clients in a single union
+1. D2FCL (Full)             - similarity-driven dynamic coalitions (the proposed method)
+2. D2FCL (FedAvg Agg)       - FedAvg aggregation instead of coalitions
+3. D2FCL (Random Coalition) - randomly formed coalitions (not similarity-driven)
+4. D2FCL (Singleton)        - one coalition per client (pure local training)
+5. D2FCL (Global Union)     - all clients in a single union
 
 Usage:
   python scripts/run_coalition_ablation.py                  # EMNIST (default)
@@ -233,7 +233,7 @@ def _build_config_emnist():
     config.weight_decay = 1e-5
     config.seed = 42
     config.rounds_per_task = config.num_rounds // config.num_tasks
-    config.algorithm = "DynDFCL"
+    config.algorithm = "D2FCL"
     config.sw = 0.1
     config.lambda_kd = 0.2
     config.lambda_proto_aug = 2.0
@@ -263,7 +263,7 @@ def _build_config_cifar100():
     config.weight_decay = 0.001
     config.seed = 42
     config.rounds_per_task = config.num_rounds // config.num_tasks
-    config.algorithm = "DynDFCL"
+    config.algorithm = "D2FCL"
     config.sw = 0.1
     config.lambda_kd = 0.2
     config.lambda_proto_aug = 0.1
@@ -306,11 +306,11 @@ def main():
     logger.info(f"num_classes: {config.num_classes}, rounds_per_task: {config.rounds_per_task}")
 
     ablation_modes = [
-        ('full',      'DynDFCL (full: similarity-driven dynamic coalitions)'),
-        ('fedavg',    'DynDFCL (FedAvg aggregation, no coalitions)'),
-        ('random',    'DynDFCL (random coalitions)'),
-        ('singleton', 'DynDFCL (singleton: one coalition per client)'),
-        ('global',    'DynDFCL (global: one union across all clients)'),
+        ('full',      'D2FCL (full: similarity-driven dynamic coalitions)'),
+        ('fedavg',    'D2FCL (FedAvg aggregation, no coalitions)'),
+        ('random',    'D2FCL (random coalitions)'),
+        ('singleton', 'D2FCL (singleton: one coalition per client)'),
+        ('global',    'D2FCL (global: one union across all clients)'),
     ]
 
     results = {}

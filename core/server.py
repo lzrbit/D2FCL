@@ -161,7 +161,7 @@ class DCFCLServer:
             self.client_control = {c.id: self._init_control(self.model) for c in self.clients}
         
         # Create partition table for coalition formation
-        if self.config.algorithm in ['DCFCL', 'DynDFCL', 'ClusterFL']:
+        if self.config.algorithm in ['DCFCL', 'D2FCL', 'ClusterFL']:
             # Initialize coalition mask if enabled
             if getattr(self.config, 'use_coalition_mask', False):
                 self._init_coalition_mask()
@@ -482,7 +482,7 @@ class DCFCLServer:
                 kwargs['server_control'] = self.server_control
                 kwargs['client_control'] = self.client_control
             
-            if self.config.algorithm in ['DCFCL', 'DynDFCL']:
+            if self.config.algorithm in ['DCFCL', 'D2FCL']:
                 kwargs['proto_queue'] = self.proto_queue
                 
                 # Update client with global prototypes
@@ -494,7 +494,7 @@ class DCFCLServer:
             train_result = client.train(global_round, task, **kwargs)
             
             # Collect results based on algorithm
-            if self.config.algorithm in ['DCFCL', 'DynDFCL']:
+            if self.config.algorithm in ['DCFCL', 'D2FCL']:
                 # Save prototypes
                 radius, prototype, class_label = client.compute_prototypes()
                 results['proto_locals'][client.id] = {
@@ -555,7 +555,7 @@ class DCFCLServer:
         elif algorithm in ['PerAvg', 'pFedMe']:
             self._aggregate_personalized()
         
-        elif algorithm in ['DCFCL', 'DynDFCL', 'ClusterFL']:
+        elif algorithm in ['DCFCL', 'D2FCL', 'ClusterFL']:
             self._aggregate_dcfcl(train_results, global_round)
     
     def _aggregate_fedavg(self):

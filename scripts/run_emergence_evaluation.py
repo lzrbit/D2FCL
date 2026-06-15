@@ -11,7 +11,7 @@ aggregation.
 Reference: "A collective AI via lifelong learning and sharing at the edge."
 
 Experiments:
-1. DynDFCL with federation: measure the emergence rate.
+1. D2FCL with federation: measure the emergence rate.
 2. Local training (no federation): baseline for comparison.
 3. Per-client analysis of emergence samples and knowledge transfer.
 """
@@ -112,7 +112,7 @@ def analyze_emergence(output_dir: str, results: dict):
 
     report_lines.append("## 2. Setup\n")
     report_lines.append("- Dataset: EMNIST-Letters")
-    report_lines.append("- Comparison: DynDFCL (federated) vs Local (no federation)")
+    report_lines.append("- Comparison: D2FCL (federated) vs Local (no federation)")
     report_lines.append("- Metric: emergence rate (accuracy on unseen classes)\n")
 
     report_lines.append("## 3. Results\n")
@@ -129,8 +129,8 @@ def analyze_emergence(output_dir: str, results: dict):
     report_lines.append("\n## 4. Emergence analysis\n")
 
     # Federated vs. local comparison.
-    if 'dyndfcl' in results and 'local' in results:
-        fed_emg = results['dyndfcl'].get('emergence_rate', 0) or 0
+    if 'd2fcl' in results and 'local' in results:
+        fed_emg = results['d2fcl'].get('emergence_rate', 0) or 0
         local_emg = results['local'].get('emergence_rate', 0) or 0
 
         if fed_emg > local_emg:
@@ -147,8 +147,8 @@ def analyze_emergence(output_dir: str, results: dict):
             report_lines.append("- The federated aggregation has limited effect on this benchmark.\n")
 
     # Per-client breakdown.
-    if 'dyndfcl' in results and 'emergence_metadata' in results['dyndfcl']:
-        metadata = results['dyndfcl']['emergence_metadata']
+    if 'd2fcl' in results and 'emergence_metadata' in results['d2fcl']:
+        metadata = results['d2fcl']['emergence_metadata']
 
         report_lines.append("### 4.2 Per-client emergence\n")
         report_lines.append("| Client | #Local Classes | #Emergence Samples | Emergence Acc |")
@@ -222,9 +222,9 @@ def main():
     }
 
     experiments = {
-        'dyndfcl': {
+        'd2fcl': {
             **base_config,
-            'algorithm': 'DynDFCL',
+            'algorithm': 'D2FCL',
             'buffer_size': 500,
             'der_alpha': 0.5,
             'der_beta': 0.5,

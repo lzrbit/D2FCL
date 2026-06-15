@@ -4,7 +4,7 @@
 Comprehensive experiment runner for DCFCL project.
 
 Part 1: Run all algorithms on EMNIST-Letters and CIFAR100.
-Part 2: Ablation study for DynDFCL.
+Part 2: Ablation study for D2FCL.
 
 Results are saved to results/ and summarized in EXPERIMENT_RESULTS.md.
 """
@@ -29,7 +29,7 @@ EMNIST_BASE = dict(
     local_epochs=100, batch_size=64,
     model="cnn", lr=1e-4, weight_decay=1e-5,
     device="cuda", seed=42,
-    # DCFCL / DynDFCL defaults
+    # DCFCL / D2FCL defaults
     sw=0.1, lambda_kd=0.2, lambda_proto_aug=2.0,
     global_weight=0.9, ema_global=0.9,
     dcfcl_broadcast=1,
@@ -50,15 +50,15 @@ CIFAR100_BASE = dict(
 )
 
 ALL_ALGORITHMS = [
-    'DCFCL', 'DynDFCL', 'FedAvg', 'FedProx', 'FedLwF',
+    'DCFCL', 'D2FCL', 'FedAvg', 'FedProx', 'FedLwF',
     'Local', 'SCAFFOLD', 'PerAvg', 'pFedMe', 'ClusterFL', 'L2C',
 ]
 
 # ============================================================
-# Ablation configurations for DynDFCL on EMNIST-Letters
+# Ablation configurations for D2FCL on EMNIST-Letters
 # ============================================================
 ABLATION_CONFIGS = {
-    # baseline (full DynDFCL)
+    # baseline (full D2FCL)
     "full":            dict(lambda_kd=0.2, lambda_proto_aug=2.0, der_alpha=0.5, der_beta=0.5, buffer_size=500),
     # remove DER (alpha=0, beta=0)  →  degenerates to DCFCL
     "no_DER":          dict(lambda_kd=0.2, lambda_proto_aug=2.0, der_alpha=0.0, der_beta=0.0, buffer_size=500),
@@ -203,7 +203,7 @@ def write_markdown(all_results, ablation_results, md_path="EXPERIMENT_RESULTS.md
 
     # ---- Part 2: Ablation ----
     if ablation_results:
-        lines.append("\n## DynDFCL Ablation Study (EMNIST-Letters)\n")
+        lines.append("\n## D2FCL Ablation Study (EMNIST-Letters)\n")
         lines.append("| Variant | Avg Task Acc (%) | Final Acc (%) | Avg Forgetting (%) | Buffer | α_der | β_der | λ_kd | λ_pa |")
         lines.append("|---------|:----------------:|:-------------:|:------------------:|:------:|:-----:|:-----:|:----:|:----:|")
         for tag, r in ablation_results.items():
@@ -272,18 +272,18 @@ def main():
         write_markdown(all_results, {})
 
     # ================================================================
-    # Part 2: Ablation study for DynDFCL on EMNIST-Letters
+    # Part 2: Ablation study for D2FCL on EMNIST-Letters
     # ================================================================
     print(f"\n{'#'*60}")
-    print(f"# Part 2: DynDFCL Ablation Study — {len(ABLATION_CONFIGS)} configs")
+    print(f"# Part 2: D2FCL Ablation Study — {len(ABLATION_CONFIGS)} configs")
     print(f"{'#'*60}")
     ablation_results = {}
     for tag, overrides in ABLATION_CONFIGS.items():
         done += 1
         remaining = total_experiments - done
         print(f"\n>>> [{done}/{total_experiments}] Ablation: {tag}  (remaining: {remaining})")
-        cmd = build_cmd(EMNIST_BASE, "DynDFCL", **overrides)
-        r = run_one(f"DynDFCL ({tag})", cmd)
+        cmd = build_cmd(EMNIST_BASE, "D2FCL", **overrides)
+        r = run_one(f"D2FCL ({tag})", cmd)
         ablation_results[tag] = r
         write_markdown(all_results, ablation_results)
 

@@ -1,4 +1,4 @@
-# DynDFCL full-method configuration (CIFAR-100).
+# D2FCL full-method configuration (CIFAR-100).
 # =============================================================
 # Enables all three improvements:
 #   A. DER++              - dark experience replay (mitigates forgetting)
@@ -6,7 +6,7 @@
 #   C. Coalition mask     - restricts forced grouping of heterogeneous clients
 #
 # Usage:
-#   python main.py --config configs/dyndfcl_cifar100.yaml
+#   python main.py --config configs/d2fcl_cifar100.yaml
 
 # ---------- General ----------
 seed: 42
@@ -25,7 +25,7 @@ local_epochs: 50
 batch_size: 64
 
 # ---------- Algorithm ----------
-algorithm: DynDFCL
+algorithm: D2FCL
 
 # ---------- Optimizer ----------
 lr: 0.001

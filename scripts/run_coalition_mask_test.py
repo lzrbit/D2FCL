@@ -96,7 +96,7 @@ def main():
         'dataset': 'EMNIST-Letters',
         'datadir': './datasets',
         'data_split_file': 'split_files/EMNIST_letters_split_cn8_tn6_cet2_cs2_s2571.pkl',
-        'algorithm': 'DynDFCL',
+        'algorithm': 'D2FCL',
         'num_users': 8,
         'num_tasks': 6,
         'num_rounds': 60,
@@ -186,7 +186,7 @@ def main():
         f.write("# Coalition Mask Ablation Report\n\n")
         f.write("## Setup\n")
         f.write("- Dataset: EMNIST-Letters\n")
-        f.write("- Algorithm: DynDFCL\n")
+        f.write("- Algorithm: D2FCL\n")
         f.write("- buffer_size: 100\n")
         f.write("- Number of clients: 8\n")
         f.write("- Number of tasks: 6\n\n")

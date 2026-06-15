@@ -187,8 +187,8 @@ def main():
     base_config.seed = seed
     base_config.rounds_per_task = base_config.num_rounds // base_config.num_tasks
 
-    # DynDFCL parameters.
-    base_config.algorithm = "DynDFCL"
+    # D2FCL parameters.
+    base_config.algorithm = "D2FCL"
     base_config.sw = 0.1
     base_config.lambda_kd = 0.2
     base_config.lambda_proto_aug = 2.0

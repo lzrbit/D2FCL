@@ -16,7 +16,7 @@ from .scaffold import ScaffoldClient
 from .peravg import PerAvgClient
 from .pfedme import pFedMeClient
 from .dcfcl import DCFCLClient
-from .dyndfcl import DynDFCLClient
+from .d2fcl import D2FCLClient
 
 __all__ = [
     'BaseClient',
@@ -27,7 +27,7 @@ __all__ = [
     'PerAvgClient',
     'pFedMeClient',
     'DCFCLClient',
-    'DynDFCLClient',
+    'D2FCLClient',
     'create_client',
 ]
 
@@ -42,7 +42,7 @@ _ALGORITHM_MAP = {
     'pFedMe':    pFedMeClient,
     'ClusterFL': FedAvgClient,    # ClusterFL: same client loop; coalition formed server-side.
     'DCFCL':     DCFCLClient,
-    'DynDFCL':   DynDFCLClient,
+    'D2FCL':   D2FCLClient,
 }
 
 

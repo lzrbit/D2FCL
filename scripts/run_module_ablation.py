@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-DynDFCL module ablation script.
+D2FCL module ablation script.
 
-Goal: verify the contribution of each module in the full DynDFCL method.
+Goal: verify the contribution of each module in the full D2FCL method.
 
 Module definitions
 ------------------
@@ -16,10 +16,10 @@ Ablation matrix (7 experiments)
 | Experiment          | DER++ | Directed | Mask |
 |---------------------|-------|----------|------|
 | DCFCL (baseline)    |   x   |     x    |   x  |
-| DynDFCL-base        |   v   |     x    |   x  |
-| DynDFCL+Directed    |   v   |     v    |   x  |
-| DynDFCL+Mask        |   v   |     x    |   v  |
-| DynDFCL+D+M (Full)  |   v   |     v    |   v  |
+| D2FCL-base        |   v   |     x    |   x  |
+| D2FCL+Directed    |   v   |     v    |   x  |
+| D2FCL+Mask        |   v   |     x    |   v  |
+| D2FCL+D+M (Full)  |   v   |     v    |   v  |
 | (extra) no-DER+Dir  |   x   |     v    |   x  |
 | (extra) no-DER+Mask |   x   |     x    |   v  |
 
@@ -129,39 +129,39 @@ ABLATION_VARIANTS = {
     "DCFCL_baseline": dict(
         algorithm="DCFCL",   # original DCFCL: no DER, no directed, no mask
     ),
-    "DynDFCL_base": dict(
-        algorithm="DynDFCL",
+    "D2FCL_base": dict(
+        algorithm="D2FCL",
         use_der=True,
         directed_collaboration=False,
         use_coalition_mask=False,
     ),
-    "DynDFCL_Directed": dict(
-        algorithm="DynDFCL",
+    "D2FCL_Directed": dict(
+        algorithm="D2FCL",
         use_der=True,
         directed_collaboration=True,
         use_coalition_mask=False,
     ),
-    "DynDFCL_Mask": dict(
-        algorithm="DynDFCL",
+    "D2FCL_Mask": dict(
+        algorithm="D2FCL",
         use_der=True,
         directed_collaboration=False,
         use_coalition_mask=True,
     ),
-    "DynDFCL_Full": dict(
-        algorithm="DynDFCL",
+    "D2FCL_Full": dict(
+        algorithm="D2FCL",
         use_der=True,
         directed_collaboration=True,
         use_coalition_mask=True,
     ),
     # ----- 2 extras: DER independence from the other modules -----
     "DCFCL_NoDER_Directed": dict(
-        algorithm="DynDFCL",
+        algorithm="D2FCL",
         use_der=False,
         directed_collaboration=True,
         use_coalition_mask=False,
     ),
     "DCFCL_NoDER_Mask": dict(
-        algorithm="DynDFCL",
+        algorithm="D2FCL",
         use_der=False,
         directed_collaboration=False,
         use_coalition_mask=True,
@@ -170,10 +170,10 @@ ABLATION_VARIANTS = {
 
 CORE_VARIANTS = [
     "DCFCL_baseline",
-    "DynDFCL_base",
-    "DynDFCL_Directed",
-    "DynDFCL_Mask",
-    "DynDFCL_Full",
+    "D2FCL_base",
+    "D2FCL_Directed",
+    "D2FCL_Mask",
+    "D2FCL_Full",
 ]
 
 
@@ -317,7 +317,7 @@ def _flag_val(cmd: list, flag: str, default: str) -> str:
 def print_summary(all_results: dict):
     """Print the ablation summary table."""
     print("\n" + "=" * 80)
-    print("DynDFCL module ablation summary")
+    print("D2FCL module ablation summary")
     print("=" * 80)
 
     header = f"{'Experiment':<30} {'Final Acc':>10} {'Avg Task Acc':>13} {'Forgetting':>11}"
@@ -336,7 +336,7 @@ def print_summary(all_results: dict):
     print("=" * 80)
 
     # Per-variant deltas relative to the base configuration.
-    base_key = "DynDFCL_base"
+    base_key = "D2FCL_base"
 
     if base_key in all_results and all_results[base_key]:
         base_acc = all_results[base_key]["final_accuracy"]
@@ -364,7 +364,7 @@ def save_results(all_results: dict, output_dir: str):
 # ---------------------------------------------------------------------------
 
 def parse_args():
-    parser = argparse.ArgumentParser(description="DynDFCL module ablation")
+    parser = argparse.ArgumentParser(description="D2FCL module ablation")
     parser.add_argument("--dataset", choices=["emnist", "cifar100"], default="emnist",
                         help="dataset (emnist | cifar100)")
     parser.add_argument("--quick", action="store_true",

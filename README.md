@@ -1,9 +1,9 @@
-# DynDFCL
+# D2FCL
 
 **Dynamic Decentralized Federated Continual Learning**
 
 Reference implementation for the paper *Decentralized Federated Continual
-Learning with Dynamic Collaboration*. DynDFCL augments the DCFCL backbone
+Learning with Dynamic Collaboration*. D2FCL augments the DCFCL backbone
 with three modules:
 
 1. **Edge-side replay (DER++)** &mdash; a persistent per-client buffer that
@@ -20,12 +20,12 @@ each are included in `scripts/`.
 ## Repository layout
 
 ```
-DynDFCL/
+D2FCL/
 ├── main.py                  # Single-run entry point (CLI / YAML config)
 ├── run_experiments.py       # Multi-run launcher
 ├── configs/                 # Default YAML configurations
-│   ├── dyndfcl_emnist.yaml
-│   ├── dyndfcl_cifar100.yaml
+│   ├── d2fcl_emnist.yaml
+│   ├── d2fcl_cifar100.yaml
 │   ├── dcfcl_emnist.yaml
 │   ├── dcfcl_cifar100.yaml
 │   └── dcfcl_directed_emnist.yaml
@@ -45,7 +45,7 @@ DynDFCL/
 │   ├── peravg.py            # Per-FedAvg (MAML-based)
 │   ├── pfedme.py            # pFedMe (Moreau-envelope personalization)
 │   ├── dcfcl.py             # DCFCL baseline
-│   └── dyndfcl.py           # DynDFCL (this paper)
+│   └── d2fcl.py           # D2FCL (this paper)
 ├── utils/                   # Data loading + helpers
 └── scripts/                 # Paper-reproduction scripts
     ├── run_full_training.py
@@ -78,10 +78,10 @@ Tested with Python 3.10, PyTorch 2.0+, on a single NVIDIA GPU.
 
 ## Quick start
 
-### Reproduce the main DynDFCL result on EMNIST-Letters
+### Reproduce the main D2FCL result on EMNIST-Letters
 
 ```bash
-python main.py --config configs/dyndfcl_emnist.yaml
+python main.py --config configs/d2fcl_emnist.yaml
 ```
 
 This runs the full method (DER++ + directed coalition + coalition mask)
@@ -90,7 +90,7 @@ with the hyperparameters reported in the paper.
 ### Reproduce on CIFAR-100
 
 ```bash
-python main.py --config configs/dyndfcl_cifar100.yaml
+python main.py --config configs/d2fcl_cifar100.yaml
 ```
 
 ### Run a baseline
@@ -105,7 +105,7 @@ python main.py --algorithm DCFCL      --config configs/dcfcl_emnist.yaml
 
 Supported algorithms (`--algorithm`):
 `Local`, `FedAvg`, `FedProx`, `SCAFFOLD`, `FedLwF`, `PerAvg`, `pFedMe`,
-`ClusterFL`, `DCFCL`, `DynDFCL`.
+`ClusterFL`, `DCFCL`, `D2FCL`.
 
 ### Run all algorithms in one command
 
@@ -143,13 +143,13 @@ YAML configs in `configs/` control all hyperparameters. CLI flags
 overwrite YAML values, e.g.:
 
 ```bash
-python main.py --config configs/dyndfcl_emnist.yaml \
+python main.py --config configs/d2fcl_emnist.yaml \
                --lr 5e-5 --buffer_size 200 \
                --no_use_directed_collaboration
 ```
 
 The most relevant flags are documented inline in
-`configs/dyndfcl_emnist.yaml`.
+`configs/d2fcl_emnist.yaml`.
 
 ## Datasets
 
@@ -184,7 +184,7 @@ Scripts under `scripts/` aggregate these JSONs into ablation summaries.
 If you find this code useful, please cite the corresponding paper:
 
 ```bibtex
-@article{dyndfcl2026,
+@article{d2fcl2026,
   title  = {Decentralized Federated Continual Learning with Dynamic Collaboration},
   author = {Li, Zirui and others},
   year   = {2026},
@@ -198,5 +198,5 @@ If you find this code useful, please cite the corresponding paper:
 
 ## Acknowledgements
 
-DynDFCL builds on the DCFCL backbone of Ma et al. (2024). The DER++
+D2FCL builds on the DCFCL backbone of Ma et al. (2024). The DER++
 replay buffer follows Buzzega et al. (2020).

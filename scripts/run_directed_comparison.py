@@ -125,7 +125,7 @@ def main():
         {
             'name': 'baseline',
             'overrides': {
-                'algorithm': 'DynDFCL',
+                'algorithm': 'D2FCL',
                 'directed_collaboration': False,
                 'buffer_size': 100,
             }
@@ -133,7 +133,7 @@ def main():
         {
             'name': 'directed_gradient',
             'overrides': {
-                'algorithm': 'DynDFCL',
+                'algorithm': 'D2FCL',
                 'directed_collaboration': True,
                 'directed_mode': 'gradient',
                 'directed_threshold': 0.0,
@@ -185,7 +185,7 @@ def main():
 
 ## Setup
 - Dataset: EMNIST-Letters
-- Algorithm: DynDFCL
+- Algorithm: D2FCL
 - buffer_size: 100 (reduced so forgetting can occur)
 - Number of clients: 8
 - Number of tasks: 6
