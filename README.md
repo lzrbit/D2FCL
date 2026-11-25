@@ -179,18 +179,7 @@ Each run writes to `./results/<algorithm>_<dataset>_<timestamp>/`:
 
 Scripts under `scripts/` aggregate these JSONs into ablation summaries.
 
-## Citation
 
-If you find this code useful, please cite the corresponding paper:
-
-```bibtex
-@article{d2fcl2026,
-  title  = {Decentralized Federated Continual Learning with Dynamic Collaboration},
-  author = {Li, Zirui and others},
-  year   = {2026},
-  note   = {Manuscript under review}
-}
-```
 
 ## License
 
